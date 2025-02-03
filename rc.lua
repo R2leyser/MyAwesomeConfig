@@ -304,6 +304,10 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
 
+
+    awful.key({ modkey, "Shift" }, "Tab", function () runVM() end,
+              {description = "show main menu", group = "awesome"}),
+
     awful.key({ modkey,           }, "b", function () awful.spawn.with_shell("~/bin/addbookmark") end,
               {description = "add a bookmark", group = "awesome"}),
 
@@ -396,9 +400,9 @@ globalkeys = gears.table.join(
               end,
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
-    awful.key({ modkey }, "r", function() awful.spawn("rofi -show drun") end,
+    awful.key({ modkey }, "r", function() awful.spawn("rofi -show drun -theme '/launchers/type-1/style-4.rasi'") end,
               {description = "show the menubar", group = "launcher"}),
-    awful.key({ modkey }, "t", function() awful.spawn("rofi -show") end,
+    awful.key({ modkey }, "t", function() awful.spawn("rofi -show window -theme '/launchers/type-1/style-4.rasi'") end,
               {description = "show the menubar", group = "launcher"})
 )
 
@@ -689,7 +693,7 @@ end
 
 function viewNextTag() 
     if not (awful.screen.focused().selected_tag == awful.screen.focused().tags[9]) then
-        awful.tag.viewnext(awful.screen.focused())
+        viewNextTag()
     else 
         awful.screen.focused().tags[1]:view_only()
     end 
@@ -697,7 +701,7 @@ function viewNextTag()
 end
 function viewPrevTag() 
     if not (awful.screen.focused().selected_tag == awful.screen.focused().tags[1]) then
-        awful.tag.viewprev(awful.screen.focused())
+        viewPrevTag()
     else 
         awful.screen.focused().tags[9]:view_only()
     end
