@@ -46,7 +46,6 @@ clrs.wht   = "#8F9093"
 clrs.dfg   = "#B0B1B4"
 clrs.mfg   = "#CBCCCE"
 clrs.nfg   = "#E4E5E7"
-
 clrs.red   = "#FA3867"
 clrs.grn   = "#3FD43B"
 clrs.ylw   = "#FEBD16"
@@ -60,7 +59,7 @@ clrs.blu_d = "#53ADE1"
 clrs.mag_d = "#AD60FF"
 clrs.cya_d = "#47E7CE"
 
-theme.font          = "JetBrainsMono Nerd Font 8"
+theme.font          = "JetBrainsMono Nerd Font 10"
 
 theme.bg_normal     = clrs.nbg
 theme.bg_focus      = clrs.gry
@@ -73,7 +72,7 @@ theme.fg_focus      = clrs.dfg
 theme.fg_urgent     = clrs.dfg
 theme.fg_minimize   = clrs.dfg
 
-theme.useless_gap   = dpi(2)
+theme.useless_gap   = dpi(5)
 theme.border_width  = dpi(0)
 theme.border_normal = clrs.gry
 theme.border_focus  = clrs.grn
@@ -160,7 +159,7 @@ theme.titlebar_maximized_button_focus_inactive = titlebar_max
 theme.titlebar_maximized_button_normal_active =  titlebar_inactive
 theme.titlebar_maximized_button_focus_active  =  titlebar_max
 
-theme.wallpaper = "~/.config/awesome/wallpapers/camelliahope-q3rsqrt.png"
+theme.wallpaper = "~/.config/awesome/wallpapers/camellia-doge.jpeg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = gc.recolor_image(themes_path.."default/layouts/fairhw.png", theme.fg_normal)

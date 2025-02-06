@@ -6,7 +6,7 @@ run(){
     fi
 }
 
-run picom -b
+run picom-ft --animations -b
 run ~/bin/power
 setxkbmap br
 # run lxsession

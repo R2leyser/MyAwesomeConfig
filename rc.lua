@@ -209,7 +209,7 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = tasklist_buttons,
 	layout = {
 	    homogeneous = true,
-	    spacing = 1,
+	    spacing = 2,
 	    forced_num_rows = 1,
 	    layout = wibox.layout.grid.horizontal
 	},
@@ -256,13 +256,17 @@ awful.screen.connect_for_each_screen(function(s)
             },
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
-	        	-- my_battery_widget,
+                {
+                    widget = wibox.container.margin,
+                    my_battery_widget,
+                    top = 8,
+                    bottom = 5,
+                },
                 space,
                 wifi_widget,
                 systray,
                 -- mykeyboardlayout,
                 mytextclock,
-                s.mylayoutbox,
             },
 	},
 	margins = 3,
@@ -677,12 +681,18 @@ end)
 
 -- Function to run the vm and move it to a new tag
 function runVM()
-    awful.spawn.easy_async_with_shell("virsh list --all --name | rofi -dmenu -theme \"$HOME/.config/rofi/launchers/type-1/style-4.rasi\" -p 'Virtual Machine'", function(stdout)
+    local virsh = "virsh list --all --name"
+    local sed = "sed '/^[[:space:]]*$/d'"
+    local rofi = "rofi -dmenu -theme \"$HOME/.config/rofi/launchers/type-1/style-4.rasi\" -p 'Virtual Machine'"
+    awful.spawn.easy_async_with_shell(virsh .. " | " .. sed .. " | " .. rofi, function(stdout)
+        if stdout == "" then 
+            return
+        end
         naughty.notify{
             text = stdout,
             title = "Opened VM"
         }
-        awful.spawn.with_shell("virsh start " .. stdout)
+        awful.spawn.easy_async_with_shell("virsh start " .. stdout, function() end)
         awful.spawn("virt-viewer -f -w -a --hotkeys=release-cursor=ctrl " .. stdout, {new_tag = {
             name = stdout,
             exclusive = true,
