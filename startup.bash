@@ -9,5 +9,5 @@ run(){
 run picom-ft --animations -b
 run ~/bin/power
 setxkbmap br
-# run lxsession
+run lxpolkit
 libinput-gestures-setup restart

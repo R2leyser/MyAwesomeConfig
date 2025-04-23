@@ -317,6 +317,8 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, "Shift"   }, "b", function () awful.spawn.with_shell("~/bin/marked") end,
               {description = "add a bookmark", group = "awesome"}),
+    awful.key({ modkey, "Shift"   }, "s", function () awful.spawn.with_shell("flameshot gui") end,
+              {description = "Take a screenshot", group = "awesome"}),
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
@@ -700,6 +702,22 @@ function runVM()
         }, switch_to_tags = true} )
     end)
 end
+
+function openBookmark()
+    local sed = "sed '/^[[:space:]]*$/d'"
+    local rofi = "rofi -dmenu -theme \"$HOME/.config/rofi/launchers/type-1/style-4.rasi\" -p 'Virtual Machine'"
+    awful.spawn.easy_async_with_shell(virsh .. " | " .. sed .. " | " .. rofi, function(stdout)
+        if stdout == "" then 
+            return
+        end
+        naughty.notify{
+            text = stdout,
+            title = "Opened VM"
+        }
+        awful.spawn("")
+    end)
+end
+
 
 function viewNextTag() 
     if not (awful.screen.focused().selected_tag == awful.screen.focused().tags[9]) then
